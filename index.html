@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikita Rathore — Full Stack Developer</title>
+<meta name="description" content="Nikita Rathore — Full Stack Developer specializing in .NET Core, Angular, and cybersecurity-focused platforms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B0F14;
+    --surface: #121821;
+    --surface-2: #161E29;
+    --border: #232E3B;
+    --text: #E7ECF2;
+    --muted: #8B98A8;
+    --amber: #D4A24E;
+    --amber-dim: rgba(212,162,78,0.14);
+    --teal: #5FBFBA;
+    --teal-dim: rgba(95,191,186,0.14);
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* faint grid texture */
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 75%);
+  }
+
+  a{ color: inherit; text-decoration: none; }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .mono{ font-family: 'IBM Plex Mono', monospace; }
+
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width: 7px; height: 7px;
+    background: var(--teal);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--teal-dim);
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: sticky; top: 0;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    background: rgba(11,15,20,0.82);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top: 18px; padding-bottom: 18px;
+  }
+  .nav-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+  }
+  .nav-links{ display:flex; gap: 28px; font-family:'IBM Plex Mono', monospace; font-size: 13px; }
+  .nav-links a{ color: var(--muted); transition: color .2s; }
+  .nav-links a:hover{ color: var(--amber); }
+
+  /* ---------- HERO ---------- */
+  header.hero{ padding: 96px 0 72px; position: relative; }
+  .hero-scanline{
+    position:absolute;
+    left:0; right:0; top:0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    opacity: 0;
+    animation: sweep 1.8s ease-out 0.2s forwards;
+  }
+  @keyframes sweep{
+    0%{ transform: translateY(0); opacity: 0; }
+    10%{ opacity: 1; }
+    100%{ transform: translateY(420px); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-scanline{ display:none; }
+  }
+
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(38px, 6vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  h1 span{ color: var(--amber); }
+
+  .role{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: clamp(18px, 2.4vw, 22px);
+    color: var(--muted);
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  .hero-summary{
+    max-width: 620px;
+    margin-top: 24px;
+    color: var(--muted);
+    font-size: 16px;
+  }
+
+  .terminal-line{
+    margin-top: 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--teal);
+    display:flex; align-items:center; gap: 8px;
+  }
+  .terminal-line .prompt{ color: var(--amber); }
+  .caret{
+    display:inline-block; width: 8px; height: 16px;
+    background: var(--teal);
+    animation: blink 1s steps(1) infinite;
+    vertical-align: -3px;
+  }
+  @keyframes blink{ 50%{ opacity: 0; } }
+
+  .cta-row{ display:flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; }
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    padding: 12px 20px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    transition: all .2s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{
+    background: var(--amber);
+    color: #0B0F14;
+    font-weight: 600;
+    border-color: var(--amber);
+  }
+  .btn-primary:hover{ background: #e5b569; }
+  .btn-ghost{ color: var(--text); }
+  .btn-ghost:hover{ border-color: var(--teal); color: var(--teal); }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding: 64px 0; border-top: 1px solid var(--border); }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 10px;}
+  h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+  }
+  .section-index{ font-family:'IBM Plex Mono', monospace; color: var(--muted); font-size: 13px; }
+
+  /* ---------- SCAN REPORT (skills) ---------- */
+  .scan-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .scan-card-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 20px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .scan-card-head .dots{ display:flex; gap:6px; }
+  .scan-card-head .dots span{ width:8px; height:8px; border-radius:50%; background: var(--border); }
+
+  .scan-rows{ padding: 6px 0; }
+  .scan-row{
+    display:flex; align-items: flex-start; justify-content: space-between;
+    gap: 20px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .scan-row:last-child{ border-bottom: none; }
+  .scan-cat{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--teal);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    width: 150px;
+    flex-shrink: 0;
+    padding-top: 3px;
+  }
+  .scan-vals{ flex: 1; color: var(--text); font-size: 14.5px; }
+  .scan-status{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    background: var(--amber-dim);
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    height: fit-content;
+    letter-spacing: 0.05em;
+  }
+
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+  .job-meta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .job-meta strong{ color: var(--text); }
+
+  .timeline{ position: relative; padding-left: 28px; }
+  .timeline::before{
+    content:"";
+    position:absolute; left: 5px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: var(--border);
+  }
+  .tl-item{ position: relative; margin-bottom: 44px; }
+  .tl-item:last-child{ margin-bottom: 0; }
+  .tl-dot{
+    position: absolute;
+    left: -28px; top: 4px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+  }
+  .tl-dot.active{ background: var(--amber); box-shadow: 0 0 0 3px var(--amber-dim); }
+  .tl-dot.complete{ background: var(--teal); box-shadow: 0 0 0 3px var(--teal-dim); }
+
+  .tl-head{ display:flex; align-items:center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+  .tl-title{ font-family:'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; }
+  .tl-pill{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    padding: 3px 9px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .tl-pill.active{ color: var(--amber); background: var(--amber-dim); }
+  .tl-pill.complete{ color: var(--teal); background: var(--teal-dim); }
+
+  .tl-dates{ font-family:'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+  .tl-desc{ color: var(--muted); font-size: 14.5px; margin-bottom: 14px; max-width: 620px; }
+
+  .tl-list{ list-style:none; }
+  .tl-list li{
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 8px;
+    font-size: 14.5px;
+    color: var(--text);
+  }
+  .tl-list li::before{
+    content:"›";
+    position: absolute; left: 0; top: 0;
+    color: var(--amber);
+    font-weight: 700;
+  }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-grid{ display:grid; gap: 16px; }
+  .edu-item{
+    display:flex; justify-content: space-between; align-items: baseline;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .edu-name{ font-weight: 600; font-size: 15px; }
+  .edu-school{ color: var(--muted); font-size: 13.5px; }
+  .edu-year{ font-family:'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--amber); }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{ padding: 72px 0 56px; border-top: 1px solid var(--border); }
+  .contact-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: clamp(30px, 5vw, 44px);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .contact-sub{ color: var(--muted); max-width: 480px; margin-bottom: 32px; }
+  .contact-grid{ display:flex; flex-wrap: wrap; gap: 14px; margin-bottom: 48px; }
+  .contact-card{
+    flex: 1; min-width: 220px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 20px;
+    transition: border-color .2s;
+  }
+  .contact-card:hover{ border-color: var(--amber); }
+  .contact-label{ font-family:'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .contact-value{ font-size: 14.5px; word-break: break-word; }
+
+  .foot-bottom{
+    display:flex; justify-content: space-between; align-items:center;
+    font-family:'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted);
+    flex-wrap: wrap; gap: 10px;
+  }
+
+  @media (max-width: 640px){
+    .nav-links{ gap: 16px; }
+    .scan-row{ flex-direction: column; }
+    .scan-status{ align-self: flex-start; }
+    header.hero{ padding: 64px 0 48px; }
+  }
+
+  :focus-visible{ outline: 2px solid var(--amber); outline-offset: 3px; }
+
+  /* ---- enhancements ---- */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  .caret{display:inline-block;width:.55em;height:1em;background:var(--amber);margin-left:4px;vertical-align:-.12em;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1080px;margin:0 auto;padding:0 24px}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px 20px;transition:border-color .3s,transform .3s}
+  .stat:hover{border-color:var(--amber);transform:translateY(-3px)}
+  .stat b{display:block;font-family:'Space Grotesk',sans-serif;font-size:2.2rem;color:var(--amber);line-height:1}
+  .stat span{display:block;margin-top:8px;color:var(--muted);font-size:.85rem}
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative}
+  .step{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;position:relative;transition:border-color .3s,transform .3s}
+  .step:hover{border-color:var(--teal);transform:translateY(-4px)}
+  .step i{font-style:normal;font-family:'IBM Plex Mono',monospace;color:var(--teal);font-size:.75rem;letter-spacing:.1em}
+  .step h4{font-family:'Space Grotesk',sans-serif;margin:8px 0 6px;font-size:1.05rem}
+  .step p{color:var(--muted);font-size:.86rem}
+  .step:not(:last-child)::after{content:"\2192";position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:var(--amber);z-index:2;font-size:1.1rem}
+  .demo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .pane{border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden}
+  .pane-h{padding:10px 16px;border-bottom:1px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--muted);display:flex;justify-content:space-between}
+  .pane-b{padding:18px;font-size:.9rem;min-height:170px}
+  .pane.raw .pane-b{font-family:'IBM Plex Mono',monospace;color:#c9a0a0;font-size:.8rem}
+  .pane.ai{border-color:rgba(95,191,186,.45)}
+  .pane.ai .pane-h{color:var(--teal)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;padding:5px 10px;border-radius:20px;border:1px solid var(--border);color:var(--muted);transition:all .25s}
+  .chip:hover{color:var(--amber);border-color:var(--amber);background:var(--amber-dim)}
+  .note{color:var(--muted);font-size:.78rem;margin-top:12px;font-family:'IBM Plex Mono',monospace}
+  #ai{padding:80px 0;border-top:1px solid var(--border)}
+  @media(max-width:860px){.stats,.flow,.demo{grid-template-columns:1fr 1fr}.step:not(:last-child)::after{display:none}}
+  @media(max-width:560px){.stats,.flow,.demo{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-name mono">NIKITA<span style="color:var(--amber)">.</span>RATHORE</div>
+    <div class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#ai">AI Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-scanline"></div>
+  <div class="wrap">
+    <div class="eyebrow">Available for opportunities</div>
+    <h1>Nikita Rathore<br><span>Full Stack Developer.</span></h1>
+    <div class="role">Building secure, scalable applications since 2022.</div>
+    <p class="hero-summary">
+      Results-driven Full Stack Developer with over 4 years of experience designing, developing, and implementing
+      robust applications using .NET Core and Angular. Adept at building scalable APIs, optimizing database
+      performance, and enhancing application security. Experienced in AI-assisted development workflows and
+      in integrating LLM-powered features into security products.
+    </p>
+    <div class="terminal-line">
+      <span class="prompt">$</span> whoami --location "Baddi, Himachal Pradesh, IN" --focus "security-first development"<span class="caret"></span>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:rathorenikita9817@gmail.com">Email me</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/nikita-rathore-5b2120173" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+</header>
+
+<div class="stats reveal" style="margin-top:-30px;margin-bottom:20px">
+  <div class="stat"><b data-count="4" data-suffix="+">0</b><span>Years in full stack development</span></div>
+  <div class="stat"><b data-count="2">0</b><span>Security platforms delivered &amp; in progress</span></div>
+  <div class="stat"><b data-count="1">0</b><span>LLM-powered feature shipped</span></div>
+  <div class="stat"><b data-count="5">0</b><span>AI tools in my daily workflow</span></div>
+</div>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Technical Skills</h2>
+      <span class="section-index mono">01 / SCAN_REPORT</span>
+    </div>
+
+    <div class="scan-card">
+      <div class="scan-card-head">
+        <span>system_scan.log — technical_profile</span>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="scan-rows">
+        <div class="scan-row">
+          <div class="scan-cat">Languages &amp; Frameworks</div>
+          <div class="scan-vals">C# (.NET Core, ASP.NET MVC), Angular, JavaScript, HTML</div>
+          <div class="scan-status">VERIFIED</div>
+        </div>
+        <div class="scan-row">
+          <div class="scan-cat">Databases</div>
+          <div class="scan-vals">MySQL, SQL Server, PostgreSQL</div>
+          <div class="scan-status">VERIFIED</div>
+        </div>
+        <div class="scan-row">
+          <div class="scan-cat">APIs</div>
+          <div class="scan-vals">RESTful API development &amp; integration</div>
+          <div class="scan-status">VERIFIED</div>
+        </div>
+        <div class="scan-row">
+          <div class="scan-cat">Tools &amp; Platforms</div>
+          <div class="scan-vals">Git, GitHub, Postman, Visual Studio, VS Code</div>
+          <div class="scan-status">VERIFIED</div>
+        </div>
+        <div class="scan-row">
+          <div class="scan-cat">Practices</div>
+          <div class="scan-vals">JSON, Agile Methodologies, Authentication &amp; Authorization (Basic, Token-Based), Version Control</div>
+          <div class="scan-status">VERIFIED</div>
+        </div>
+        <div class="scan-row">
+          <div class="scan-cat">AI-Assisted Development</div>
+          <div class="scan-vals">Google Stitch (AI UI design), MCP (Model Context Protocol), Google Antigravity (agentic implementation planning), GitHub Copilot, Claude (test scaffolding &amp; test case generation)</div>
+          <div class="scan-status">VERIFIED</div>
+        </div>
+        <div class="scan-row">
+          <div class="scan-cat">AI Feature Integration</div>
+          <div class="scan-vals">OpenAI GPT API (LLM-powered assistant for plain-language vulnerability explanations)</div>
+          <div class="scan-status">VERIFIED</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ai">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>AI in My Work</h2>
+      <span class="section-index mono">02 / AI_LAB</span>
+    </div>
+
+    <p class="reveal" style="color:var(--muted);max-width:720px;margin-bottom:28px">How I build: design with AI, plan with an agent, review every step before code is written, and test with AI assistance.</p>
+
+    <div class="flow reveal">
+      <div class="step"><i>01 / DESIGN</i><h4>Google Stitch</h4><p>Generate the application UI design from prompts.</p></div>
+      <div class="step"><i>02 / CONNECT</i><h4>MCP</h4><p>Model Context Protocol brings the design into the coding environment.</p></div>
+      <div class="step"><i>03 / PLAN</i><h4>Antigravity</h4><p>Agent drafts an implementation plan; I comment and re-plan until it is right.</p></div>
+      <div class="step"><i>04 / BUILD</i><h4>Review &amp; ship</h4><p>Code is implemented only after plan review. Claude helps scaffold tests.</p></div>
+    </div>
+
+    <h3 class="reveal" style="font-family:'Space Grotesk',sans-serif;margin:48px 0 6px;font-size:1.4rem">AI assistant inside the scanner</h3>
+    <p class="reveal" style="color:var(--muted);max-width:720px;margin-bottom:20px">An OpenAI GPT-powered assistant translates technical scan findings into plain language so non-security users can understand and act on them.</p>
+
+    <div class="demo reveal">
+      <div class="pane raw"><div class="pane-h"><span>RAW SCAN FINDING</span><span>BEFORE</span></div>
+        <div class="pane-b">severity: HIGH<br>type: SQL_INJECTION<br>component: /api/login<br>detail: Unsanitized input concatenated into query string.</div></div>
+      <div class="pane ai"><div class="pane-h"><span>AI ASSISTANT EXPLANATION</span><span>AFTER</span></div>
+        <div class="pane-b" id="typed"></div></div>
+    </div>
+    <div class="note">// illustrative example of the feature's output style</div>
+
+    <div class="chips reveal">
+      <span class="chip">OpenAI GPT API</span><span class="chip">Google Stitch</span><span class="chip">MCP</span>
+      <span class="chip">Google Antigravity</span><span class="chip">GitHub Copilot</span><span class="chip">Claude</span>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Professional Experience</h2>
+      <span class="section-index mono">03 / TIMELINE</span>
+    </div>
+
+    <div class="job-meta">
+      <strong>Full Stack Developer</strong> — Iotasol, Ludhiana, Punjab &nbsp;·&nbsp; July 2022 – Present
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <div class="tl-head">
+          <div class="tl-title">Security Scanning Platform</div>
+          <span class="tl-pill active">In progress</span>
+        </div>
+        <div class="tl-dates">July 2026 — Present</div>
+        <p class="tl-desc">A platform used to assess and identify security vulnerabilities in other projects and applications.</p>
+        <ul class="tl-list">
+          <li>Contributing to the design and development of a platform for scanning and evaluating the security posture of other applications</li>
+          <li>Working on database design and management using PostgreSQL</li>
+          <li>Collaborating with cross-functional teams to define scan rules, reporting, and vulnerability tracking features</li>
+          <li>Integrated an AI assistant powered by the OpenAI GPT API that translates raw scan results into plain-language explanations of vulnerabilities for end users</li>
+          <li>Designed application UI using Google Stitch and implemented it through the Antigravity agentic IDE via an MCP-based design-to-code workflow</li>
+          <li>Drafted and iterated on implementation plans in Antigravity, reviewing, commenting, and re-planning before executing code changes</li>
+          <li>Used Claude to scaffold test setups and generate test cases; used GitHub Copilot for commit message generation</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot complete"></div>
+        <div class="tl-head">
+          <div class="tl-title">Cybersecurity SaaS Platform</div>
+          <span class="tl-pill complete">Completed</span>
+        </div>
+        <div class="tl-dates">July 2022 — June 30, 2026</div>
+        <p class="tl-desc">A cybersecurity SaaS platform designed for organizations and IT providers to assess, improve, and manage security maturity. Originated in Australia.</p>
+        <ul class="tl-list">
+          <li>Designed and maintained high-performance backend services using .NET Core</li>
+          <li>Developed Angular-based frontend components to deliver responsive UI</li>
+          <li>Integrated RESTful APIs for seamless data flow between frontend and backend</li>
+          <li>Implemented basic authentication and authorization for secure access</li>
+          <li>Worked on MySQL database schema design, query optimization, and data integrity</li>
+          <li>Identified and resolved performance bottlenecks in both code and database queries</li>
+          <li>Actively collaborated with cross-functional teams across compliance, incidents, metrics, and assessment modules</li>
+          <li>Contributed to improving the security posture and usability of the application</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Education</h2>
+      <span class="section-index mono">04 / RECORDS</span>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-item">
+        <div>
+          <div class="edu-name">Bachelor of Technology (B.Tech), Computer Science</div>
+          <div class="edu-school">Baddi University of Emerging Sciences &amp; Technology</div>
+        </div>
+        <div class="edu-year">2021</div>
+      </div>
+      <div class="edu-item">
+        <div>
+          <div class="edu-name">Senior Secondary Education</div>
+          <div class="edu-school">Shivalik Science Sr. Sec. School</div>
+        </div>
+        <div class="edu-year">2017</div>
+      </div>
+      <div class="edu-item">
+        <div>
+          <div class="edu-name">Matriculation</div>
+          <div class="edu-school">Shivalik Science Sr. Sec. School</div>
+        </div>
+        <div class="edu-year">2015</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Get in touch</div>
+    <div class="contact-title">Let's work together.</div>
+    <p class="contact-sub">Open to full stack and security-focused development roles. Reach out directly or connect on LinkedIn.</p>
+
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:rathorenikita9817@gmail.com">
+        <div class="contact-label">Email</div>
+        <div class="contact-value">rathorenikita9817@gmail.com</div>
+      </a>
+      <a class="contact-card" href="tel:+918219349075">
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">08219349075</div>
+      </a>
+      <a class="contact-card" href="https://www.linkedin.com/in/nikita-rathore-5b2120173" target="_blank" rel="noopener">
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value">/in/nikita-rathore-5b2120173</div>
+      </a>
+      <div class="contact-card">
+        <div class="contact-label">Location</div>
+        <div class="contact-value">Baddi, Himachal Pradesh, India</div>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© 2026 Nikita Rathore</span>
+      <span>Built &amp; deployed via GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+  document.querySelectorAll('.tl-item,.scan-row,.edu-item,.contact-card').forEach(function(el){el.classList.add('reveal');io.observe(el)});
+  var co=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var b=e.target.querySelector('b[data-count]');if(!b)return;
+    var n=+b.dataset.count,suf=b.dataset.suffix||'',i=0;var t=setInterval(function(){i++;b.textContent=i+(i===n?suf:'');if(i>=n)clearInterval(t)},180);co.unobserve(e.target)})},{threshold:.5});
+  document.querySelectorAll('.stat').forEach(function(el){co.observe(el)});
+  var msg="This is a serious security problem. The login page lets an attacker type database commands into a form field and have the system run them. It could expose or change user data. Fix it by validating and sanitizing all input, and by using parameterized queries instead of building queries from raw text.";
+  var box=document.getElementById('typed'),started=false;
+  new IntersectionObserver(function(es,o){if(es[0].isIntersecting&&!started){started=true;var k=0;var t=setInterval(function(){box.innerHTML=msg.slice(0,++k)+'<span class="caret"></span>';if(k>=msg.length)clearInterval(t)},18);o.disconnect()}},{threshold:.4}).observe(box);
+  var h=document.querySelector('.hero .role');if(h){var full=h.textContent,j=0;h.textContent='';var tt=setInterval(function(){h.innerHTML=full.slice(0,++j)+'<span class="caret"></span>';if(j>=full.length)clearInterval(tt)},45)}
+})();
+</script>
+</body>
+</html>
